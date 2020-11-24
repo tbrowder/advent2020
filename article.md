@@ -1,12 +1,9 @@
 TWEAKing with Class
 
 Santa was browsing the etrade magazines on his iPad one morning and
-
-
-came across an [article](https://wealthsimple.com/) 
-
+came across an [article](https://www.wealthsimple.com/en-ca/magazine/cobol-controls-your-money?utm_medium=email&utm_source=topic+optin&utm_campaign=awareness&utm_content=20201121+prog+nl&mkt_tok=eyJpIjoiTmpWa1pEWTJNRE13WldZNSIsInQiOiJJXC9PQ1JRQWRvdjNhMWhHS0NmdHFnVE9kNGQ0Z3h5RXpMWm0wN0VlVHFYb1pvNTRrbUdlSVE0a09CSTAxKzVuVVltbzBtUjdKb3RzYVp5Z240Q2x1WUhhQlByWmRQNUJyNFBcL0d6c0Y1NGRXbU0yWUtHQ2xtN0luR0RIV3JtWjFjIn0%3D)
 referenced in the latest *O'Reilly Programming Newsletter*
-about how the ancient COBOL 
+about how ancient COBOL
 is the programming language still used for the bulk of the world's business software.
 
 He had been aware of that since his operations had
@@ -52,8 +49,8 @@ sides may be of different lengths. Note we will not consider rectangles
 with zero-length edges as valid.
 
 A free-floating rectangle can be precisely defined by its width and length.
-A fixed rectangle on an orthogonal x,y plane must have one of its diagonals 
-defined by either the coordinates of its two endpoints or one endpoint and 
+A fixed rectangle on an orthogonal x,y plane must have one of its diagonals
+defined by either the coordinates of its two endpoints or one endpoint and
 the diagonal's angle from one of the positive x-axis.
 
 For our exercise observe the following constraints:
@@ -116,10 +113,10 @@ your solution.
 Okay, much better, you used the TWEAK submethod to check for valid entries. And very clever to warn
 of reversed entries to adjust for lower-left being below and to the left of the upper-right corner!
 
-However, you 
+However, you
 haven't allowed for any other way to create the Box object other than entering
 the lower-left corner and upper-right corner coordinates. Does any other group have a solution
-for entering a corner along with the width and height? 
+for entering a corner along with the width and height?
 
 Group D, please show it.
 
