@@ -13,7 +13,7 @@ efficiencies in his maximally-automated toy factories.
 
 He had been keeping a keen eye (filled with a twinkle) on Larry
 Wall's new Raku language since its formal release on Christmas Day in
-2015, and decided then to incoporate its use in his
+2015, and decided it was time to incoporate its use in his
 new five-year plan. (After all, he mused, it is supposed
 to be the "100 year language.") He soon called a meeting of his IT staff
 leaders to get the ball rolling.
@@ -32,11 +32,11 @@ listen in as he deals with class design. Santa is speaking...]
 Let's look at a practical case for class submethods. We are
 rewriting our page layout software for our publishing department.
 As you may know, we have now started writing PDF directly using David Warring's
-fine Raku PDF modules, but we also do a lot of automation
+fine Raku PDF modules, but we also do a lot of automated document production
 with PostScript. In both cases we use the convention of
 describing the location of page objects (text, images, etc.) as a 2D reference of x,y
 coordinates with the default origin at the lower-left corner
-of the page with the positive x-axis pointing to the right.
+of the page with the positive x and y axes pointing to the right and up, respectively.
 
 For today's class exercise, divide yourselves into two-elf teams and
 come up with a Raku class to describe
@@ -55,9 +55,9 @@ the diagonal's angle from one of the positive x-axis.
 
 For our exercise observe the following constraints:
 
-+ the rectangle's edges are parallel to the x,y axes
++ the rectangle's edges are always parallel to the x or y axes
 + the class attributes must be defined at creation time and will be immutable after successful construction
-+ all rectangles should have their corners in the positive x,y quadrant
++ rectangles should have their corners in the positive x,y quadrant
 
 Your work should have at least the necessary attributes to define and position
 your class. You should also have code to show the creation of an instance of your class.
@@ -70,7 +70,7 @@ gets a candy cane. :-D
 
 Okay, group A show your class.
 
-<!--  sol 1 -->
+<!-- sol 1 -->
 ~~~
 class Box {
     has$.ulx;has$.uly;               has$.urx;has$.ury;
@@ -82,27 +82,41 @@ class Box {
         $!urx - $!llx
     }
 }
-my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
-my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
-say $o.raku;
-say $o.width;
 ~~~
 
-"Ho, ho, ho! Quite the little artistes aren't we? Let's see Python top that! Now lets try it out...
+"Ho, ho, ho! Quite the little ASCII artistes aren't we? Let's see Python top that! Now lets try it out...
 
+<!-- test 1 -->
+~~~
+$ raku -I.
+> use Box;
+> my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
+> my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
+> say $o.width;
+~~~
+
+Hm, I see at least one problem. You've added all the attributes, but the width method relies on attributes
+that may not have been initialized. What if the user had done this:
+
+~~~
+> my ($llx, $lly, $w, $h) = 0, 0, 2, 3;
+> my $o = Box.new: :$llx, :$lly, :$w, $h;
+> say $o.width;
+~~~
+
+How can you handle that? Another group take that code and modify it accordingly. 
+
+And please remove the ASCII art or the reindeer may think it's tundra grass, ho, ho, ho!
+
+Any one? Yes, group C, please show your solution. 
+.
 
 <!-- sol 2-->
 ~~~
-# get current Box.new(ulx => Any, uly => Any, urx => 2, ury => 3, llx => 0, lly => 0, lrx => Any, lry => Any)
+# use BUILD
 ~~~
 
-"Hm, I see at least one problem. You've added all the attributes, but the width method relies on attributes
-that haven't been initialized. How can you handle that? Any one? Yes, group C, please show
-your solution.
-
-<!-- sol 3-->
-~~~
-~~~
+And your 
 
 "Sorry, the BUILD submethod won't work for that. Group B, what do you have?
 
