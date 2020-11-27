@@ -163,7 +163,8 @@ watching a rerun of the wonderful 1994 movie *The Santa Clause* starring Tim All
 (Note there were also the sequels *The Santa Clause 2*, released in 2002, and
 *The Santa Clause 3: The Escape Clause*, released in 2006.) In case you've never heard
 the population of Santa's North Pole being estimated at over one million elves, I
-point you to this year's movie, [The Christmas Chronicles 2](https://www.imdb.com/title/tt11057644/?ref_=fn_al_tt_1), and ask the question: how 
+point you to this year's movie, [The Christmas Chronicles 2](https://www.imdb.com/title/tt11057644/?ref_=fn_al_tt_1), 
+and ask the question: how 
 do you suppose millions of children could be left gifts by Santa on Christmas
 without an operation with resources greater than Amazon, Fed EX, UPS, and the USPS combined?
 
