@@ -18,9 +18,9 @@ new five-year plan. (After all, he mused, it is supposed
 to be the "100 year language.") He soon called a meeting of his IT staff
 leaders to get the ball rolling.
 
-At the meeting he handed out copies of Dr. Juan Merelo's new book, *Raku Recipes*,
+At the meeting he handed out copies of Dr. Juan Merelo's new book, [Raku Recipes](https://www.apress.com/gp/book/9781484262573),
 to inspire the coding cowboys in the crowd. "Now people, let's start
-at the beginning and teach Raku as the initial programming
+at the beginning and teach [Raku](https://raku.org) as the initial programming
 language for IT students at the North Pole University. In the meantime, make
 sure all current IT coders have a copy of JJ's book, and I expect them
 to start learning to use Raku in their spare time" he said with a chuckle.
@@ -32,7 +32,7 @@ listen in as he deals with class design. Santa is speaking...]
 Let's look at a practical case for class submethods. We are
 rewriting our page layout software for our publishing department.
 As you may know, we have now started writing PDF directly using David Warring's
-fine Raku PDF modules, but we also do a lot of automated document production
+fine [Raku PDF modules](https://pdf-raku.github.io), but we also do a lot of automated document production
 with PostScript. In both cases we use the convention of
 describing the location of page objects (text, images, etc.) as a 2D reference of x,y
 coordinates with the default origin at the lower-left corner
@@ -161,4 +161,9 @@ new book *Raku Recipes* (mentioned above).
 The Santa Claus inspiration was from
 watching a rerun of the wonderful 1994 movie *The Santa Clause* starring Tim Allen.
 (Note there were also the sequels *The Santa Clause 2*, released in 2002, and
-*The Santa Clause 3: The Escape Clause*, released in 2006.)
+*The Santa Clause 3: The Escape Clause*, released in 2006.) In case you've never heard
+the population of Santa's North Pole being estimated at over one million elves, I
+point you to this year's movie, [The Christmas Chronicles 2](https://www.imdb.com/title/tt11057644/?ref_=fn_al_tt_1), and ask the question: how 
+do you suppose millions of children could be left gifts by Santa on Christmas
+without an operation with resources greater than Amazon, Fed EX, UPS, and the USPS combined?
+
