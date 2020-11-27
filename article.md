@@ -12,8 +12,8 @@ over the cenruries, and he was very proud of the cutting edge
 efficiencies in his maximally-automated toy factories.
 
 He had been keeping a keen eye (filled with a twinkle) on Larry
-Wall's new Raku language since its formal release on Christmas Day in
-2015, and decided it was time to incoporate its use in his
+Wall's new [Raku](https://raku.org) language since its formal release on Christmas Day in
+2015, and decided it was time to incorporate its use in his
 new five-year plan. (After all, he mused, it is supposed
 to be the "100 year language.") He soon called a meeting of his IT staff
 leaders to get the ball rolling.
@@ -109,7 +109,6 @@ How can you handle that? Another group take that code and modify it accordingly.
 And please remove the ASCII art or the reindeer may think it's tundra grass, ho, ho, ho!
 
 Any one? Yes, group C, please show your solution. 
-.
 
 <!-- sol 2-->
 ~~~
