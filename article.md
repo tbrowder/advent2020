@@ -77,7 +77,6 @@ Okay, group A show your class.
 
 <!-- sol 1 -->
 ~~~raku
-#!/usr/bin/env raku
 class Box {
 
                         ;
@@ -104,9 +103,6 @@ class Box {
         $!urx - $!llx
     }
 }
-my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
-my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
-say $o.width;
 ~~~
 
 "Ho, ho, ho! Quite the little ASCII artistes aren't we? Let's see Python top that! Now lets try it out...
