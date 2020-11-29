@@ -61,7 +61,6 @@ For our exercise observe the following constraints:
 
 + the rectangle's edges are always parallel to the x or y axes
 + the class attributes must be defined at creation time and will be immutable after successful construction
-+ rectangles should have their corners in the positive x,y quadrant
 
 Your work should have at least the necessary attributes to define and
 position your class. You should also have code to show the creation of
@@ -127,8 +126,7 @@ that may not have been initialized. What if the user had done this:
 > my $o = Box.new: :$llx, :$lly, :$w, $h;
 ===SORRY=== Error while compiling sol1a
 Variable '$urx' is not declared
-at sol1a:19
-------> my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
+...
 ~~~
 
 Boom! How can you handle that to avoid an exception? Another group please take that code and modify it accordingly.
@@ -146,13 +144,16 @@ methods to show the values of public attributes? We shouldn't have to add our
 own width method, or any other method. Any ideas!
 
 
-
 <!-- sol 3-->
 ~~~raku
 # use BUILD
 ~~~
 
-"Sorry, the BUILD submethod won't work for that. Group B, what do you have?
+Sorry, the BUILD submethod won't work for that without some more code. It doesn't
+get access to default values. It can only assign values from arguments in its
+signature.
+
+Group B, what do you have?
 
 <!-- sol 4-->
 ~~~
@@ -180,15 +181,17 @@ solution. And this time, for extra credit, add tests for your class.
 ~~~
 ~~~
 
-Well done, all. I'm handing out candy canes and sugar plums for everyone in the class, ho, ho, ho!
+Well done, all! Using business vernacular, "the bottom line in practical class construction is to "cut to the chase," use
+the TWEAK submethod and "take care of business." We've learned how to build a robust, immutable  class
+with the aid of the TWEAK submethod. It was not available in the in the Christmas
+release, but it was added soon thereafter because it is needed so
+often in real-world use cases as we've seen.  
+(Note also TWEAK is a much better name for an elf than BUILD.)
+I'm handing out candy canes and sugar plums for everyone in the class, ho, ho, ho!
 
-Have a very Merry Chistmas and a Happy New Year to you and your families!
+Have a very Merry Chistmas, and a Happy New Year to you and your families!
 
-
-
-
-
-APPENDIX
+NOTES
 
 For inspiration for this article I thank my friend JJ Merelo and his
 new book *Raku Recipes* (mentioned above).
