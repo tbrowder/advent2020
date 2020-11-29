@@ -57,10 +57,15 @@ A fixed rectangle on an orthogonal x,y plane must have one of its diagonals
 defined by either the coordinates of its two endpoints or one endpoint and
 the diagonal's angle from one of the positive x-axis.
 
+The requirements of our class are as follows:
++ immutability after consruction via the default *new* method
++ defined by the lower-left corner and either (1) the upper-right
+corner or (2) its width and height
+
 For our exercise observe the following constraints:
 
 + the rectangle's edges are always parallel to the x or y axes
-+ the class attributes must be defined at creation time and will be immutable after successful construction
++ the rectangle's edges have finite length
 
 Your work should have at least the necessary attributes to define and
 position your class. You should also have code to show the creation of
@@ -161,6 +166,10 @@ Group B, what do you have?
 
 Okay, much better, you used the TWEAK submethod to check for valid entries. And very clever to warn
 of reversed entries to adjust for lower-left being below and to the left of the upper-right corner!
+Note TWEAK was not available in the in the Christmas
+release of Raku, but it was added soon thereafter because it is needed so
+often in real-world use cases as we've seen.  
+(Note also TWEAK is a much better name for an elf than BUILD!)
 
 However, you
 haven't allowed for any other way to create the Box object other than entering
@@ -177,21 +186,32 @@ Okay, very good. But still only one method of entry.
 Let's learn from the demonstrations so far and integrate the useful things into a final
 solution. And this time, for extra credit, add tests for your class.
 
-<!-- sol 6-->
-~~~
-~~~
+[Santa hears a faint chime from his pocket watch and checks its face...]
 
-Well done, all! Using business vernacular, "the bottom line in practical class construction is to "cut to the chase," use
-the TWEAK submethod and "take care of business." We've learned how to build a robust, immutable  class
-with the aid of the TWEAK submethod. It was not available in the in the Christmas
-release, but it was added soon thereafter because it is needed so
-often in real-world use cases as we've seen.  
-(Note also TWEAK is a much better name for an elf than BUILD.)
+Okay, Christmas people, Santa is running behind schedule and I have to
+leave you soon. Besides, I don't know much more than you do and you'll
+have to dig into the "docs" about class construction in order to get the gory details.
+[Here](https://docs.raku.org/language/classtut#index-entry-BUILD) 
+and 
+[here](https://docs.raku.org/language/objects#Object_construction) 
+are two places in particular that address BUILD and TWEAK and their differences.
+Also 
+seek help from more experienced Rakoons (the friendly community of Raku users) on IRC channel \#raku.
+
+Well done, all! And I'm not going to leave you with an unfinished task.
+
+I'm a pragmatic programmar and business man and "the bottom line in practical class construction is to "cut to the chase," use
+the TWEAK submethod and "take care of business." 
+Thus we've started to build a practical, robust, and immutable  class
+with the aid of the TWEAK submethod. 
+
+Please see my final solution in the APPENDIX below. As they say on IRC, "YMMV" (your mileage may vary).
+
 I'm handing out candy canes and sugar plums for everyone in the class, ho, ho, ho!
 
 Have a very Merry Chistmas, and a Happy New Year to you and your families!
 
-NOTES
+# NOTES
 
 For inspiration for this article I thank my friend JJ Merelo and his
 new book *Raku Recipes* (mentioned above).
@@ -205,3 +225,19 @@ point you to this year's movie, [The Christmas Chronicles 2](https://www.imdb.co
 and ask the question: how
 do you suppose millions of children could be left gifts by Santa on Christmas
 without an operation with resources greater than Amazon, Fed EX, UPS, and the USPS combined?
+
+# APPENDIX
+
+The final solution (also available on Github at [this repo](https://github.com/tbrowder/advent2020/solution):
+
+The module file **Box.rakumod**:
+
+~~~raku
+~~~
+
+The test file contents:
+
+~~~raku
+~~~
+
+
