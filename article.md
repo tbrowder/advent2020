@@ -77,6 +77,7 @@ Okay, group A show your class.
 
 <!-- sol 1 -->
 ~~~raku
+$ cat Box.rakumod
 class Box {
 
                         ;
@@ -107,36 +108,49 @@ class Box {
 
 "Ho, ho, ho! Quite the little ASCII artistes aren't we? Let's see Python top that! Now lets try it out...
 
-<!-- test 1 -->
-~~~
+<!-- sol 1 testb-->
+~~~raku
 $ raku -I.
 > use Box;
 > my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
 > my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
 > say $o.width;
+2
 ~~~
 
 Hm, I see at least one problem. You've added all the attributes, but the width method relies on attributes
 that may not have been initialized. What if the user had done this:
 
-~~~
+<!-- sol 1a -->
+~~~raku
 > my ($llx, $lly, $w, $h) = 0, 0, 2, 3;
 > my $o = Box.new: :$llx, :$lly, :$w, $h;
-> say $o.width;
+===SORRY=== Error while compiling sol1a
+Variable '$urx' is not declared
+at sol1a:19
+------> my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
 ~~~
 
-How can you handle that? Another group take that code and modify it accordingly.
+Boom! How can you handle that to avoid an exception? Another group please take that code and modify it accordingly.
 
-And please remove the ASCII art or the reindeer may think it's tundra grass, ho, ho, ho!
+And remove the ASCII art or the reindeer may think it's something good to eat, ho, ho, ho!
 
 Any one? Yes, group C, please show your solution.
 
 <!-- sol 2-->
-~~~
-# use BUILD
+~~~raku
 ~~~
 
-And your
+That solution will work, but why are we not taking advantage of Raku's default
+methods to show the values of public attributes? We shouldn't have to add our
+own width method, or any other method. Any ideas!
+
+
+
+<!-- sol 3-->
+~~~raku
+# use BUILD
+~~~
 
 "Sorry, the BUILD submethod won't work for that. Group B, what do you have?
 
