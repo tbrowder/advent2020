@@ -110,7 +110,7 @@ class Box {
 }
 ~~~
 
-"Ho, ho, ho! Quite the little ASCII artistes aren't we? Let's see Python top that! Now lets try it out...
+Ho, ho, ho! Quite the little ASCII artistes aren't we? Let's see Python top that! Now lets try it out...
 
 <!-- sol 1 testb-->
 ~~~raku
