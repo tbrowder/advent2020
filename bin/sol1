@@ -1,0 +1,34 @@
+#!/usr/bin/env raku
+my $sol = $*PROGRAM.IO.basename.Str; $sol ~~ s/sol//; say qq:to/HERE/;
+Solution $sol:\n==========
+HERE
+
+# sol 1
+class Box {
+                        ;
+                       ;;;
+                        ;
+                       ;;;
+                      ;;;;;
+                     ;;;;;;;
+                    ;;has$.h;
+                   ;;;;;;;;;;;
+                  ;;;has$.urx;;
+                 ;;;;;;;;;;;;;;;
+                ;;;has$.ury;;;;;;
+               ;;;;;;;;;;;;;;;;;;;
+              ;;;;;;;;;;;;has$.w;;;
+             ;;;has$.llx;;;;;;;;;;;;
+            ;;;;;;;;;;;;;;;;;;;;;;;;;
+           ;;;;;;;;;;;;;;has$.lly;;;;;
+          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                       ;;;
+                     ;;;;;;;
+
+    method width {
+        $!urx - $!llx
+    }
+}
+my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
+my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
+say $o.width;

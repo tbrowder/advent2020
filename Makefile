@@ -1,20 +1,17 @@
 RAKU    := raku
-LIBPATH := .
+LIBPATH := lib
 QUIET   := -Q
 VERBOSE := -v
 
-.PHONY: quiet verbose
+.PHONY: santa
 
-default: quiet
+default: santa
 
-TESTS   := t/*.t
+#TESTS   := t/*.t
 
-quiet:
-	for f in $(TESTS) ; do \
-	    RAKULIB=$(LIBPATH) prove $(QUIET) --exec=$(RAKU) $$f ; \
-	done
+santa:
+	RAKULIB=$(LIBPATH) prove $(QUIET) --exec=$(RAKU) t/santa/*.t
+
 
 verbose:
-	for f in $(TESTS) ; do \
-	    RAKULIB=$(LIBPATH) prove $(VERBOSD) --exec=$(RAKU) $$f ; \
-	done
+	RAKULIB=$(LIBPATH) prove $(VERBOSE) --exec=$(RAKU) t/santa/*.t
