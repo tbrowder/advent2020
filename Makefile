@@ -10,7 +10,7 @@ default: santa
 #TESTS   := t/*.t
 
 santa:
-	RAKULIB=$(LIBPATH) prove $(QUIET) --exec=$(RAKU) t/santa/*.t
+	@ RAKULIB=$(LIBPATH) prove $(QUIET) --exec=$(RAKU) t/santa/*.t
 
 
 verbose:
