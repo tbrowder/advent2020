@@ -1,4 +1,4 @@
-TWEAKing with Class
+Santa Claus TWEAKs with a Class
 
 Santa was browsing the etrade magazines on his iPad one morning and
 came across an

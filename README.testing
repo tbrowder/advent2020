@@ -1,0 +1,4 @@
+To run tests as quietly as possible, execute:
+
+    $ make -s
+
