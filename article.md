@@ -1,6 +1,8 @@
 Santa Claus TWEAKs with a Class
 
-Santa was browsing the etrade magazines on his iPad one morning and
+## Prologue
+
+Santa was browsing the eTrade magazines on his iPad one morning and
 came across an
 [article](https://www.wealthsimple.com/en-ca/magazine/cobol-controls-your-money?utm_medium=email&utm_source=topic+optin&utm_campaign=awareness&utm_content=20201121+prog+nl&mkt_tok=eyJpIjoiTmpWa1pEWTJNRE13WldZNSIsInQiOiJJXC9PQ1JRQWRvdjNhMWhHS0NmdHFnVE9kNGQ0Z3h5RXpMWm0wN0VlVHFYb1pvNTRrbUdlSVE0a09CSTAxKzVuVVltbzBtUjdKb3RzYVp5Z240Q2x1WUhhQlByWmRQNUJyNFBcL0d6c0Y1NGRXbU0yWUtHQ2xtN0luR0RIV3JtWjFjIn0%3D)
 referenced in the latest *O'Reilly Programming Newsletter* about how
@@ -29,8 +31,44 @@ book, and I expect them to start learning to use Raku in their spare
 time" he said with a chuckle.  "And have them all join the \#raku IRC
 channel" he added.
 
+## A Class on Class
+
 [Some weeks later, Santa was the guest instructor in a beginning Raku class. We
 listen in as he deals with class design. Santa is speaking...]
+
+And Raku has an easy-to-use but powerful class construction syntax. For
+example, look at this simple example of a Circle class with the 
+following characteristics:
+
++ immutable after construction
++ user enters either the radius or diameter during construction
++ area is calculated during construction
++ circumference is calculated during construction
++ an error is thrown if neither radius nor diameter are entered
+
+What do you notice about the construction?
+
+What happens with more complicated geometric figures?
+
+How can you handle them? Yes, there are submethods that can help: BUILD and TWEAK.
+
+I'm not going to bore you with the gory details but you can read then in the fine "docs"
+...
+
+Instead, I recommend jumping straight to using TWEAK. It was added soon after the
+Christmas release because it eases the burden of creating immutable, practical classes.
+
+Take a look at rewriting the Circle class using TWEAK.
+In that short example, a "wc" comparison gives:
+
+~~~
+~~~
+
+Not only is the TWEAK version a bit shorter, 
+I it's think much easier to maintain and extend. Why optimize whan clarity
+is much more important? Remember the famous quote by Dr. Donald Knuth,
+the world-renowned computer scientist and mathemetician, "premature optimization
+is the root of all evil."
 
 Let's look at a practical case for class submethods. We are rewriting
 our page layout software for our publishing department.  As you may

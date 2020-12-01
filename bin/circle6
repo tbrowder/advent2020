@@ -1,0 +1,45 @@
+#!/usr/bin/env raku
+my $sol = $*PROGRAM.IO.basename.Str; $sol ~~ s/sol//; say qq:to/HERE/; 
+Solution $sol:\n==========
+HERE 
+
+class Circle {
+    has $.radius;
+    has $.diam;
+    has $.area;
+    has $.circum;
+
+    submethod TWEAK {
+        # Here we have access to all attributes and their values entered
+        # in the new method!
+        if $!radius.defined  {
+            $!diam = $!radius * 2
+        }
+        elsif $!diam.defined {
+            $!radius = $!diam * 0.5
+        }
+        else {
+            die "FATAL: neither radius nor diam are defined"
+        }
+        $!area   =  pi * $!radius ** 2;
+        $!circum =  pi * $!radius * 2;
+    }
+}
+say "== enter radius";
+my $radius = 3;
+my $c = Circle.new: :$radius;
+say "radius: {$c.radius}";
+say "diam: {$c.diam}";
+say "area: {$c.area}";
+say "circum: {$c.circum}";
+
+say "== enter diam";
+my $diam = 6;
+$c = Circle.new: :$diam;
+say "radius: {$c.radius}";
+say "diam: {$c.diam}";
+say "area: {$c.area}";
+say "circum: {$c.circum}";
+
+
+
