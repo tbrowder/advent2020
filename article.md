@@ -116,7 +116,7 @@ Note that as I designed my version of the Box class, I wrote a test for it
 at the same time. Then I refined each as I continued until I was satisfied
 with both. The test actually specifies my design, much the same as is
 done with the Raku language which is defined by its extensive test suite, referred to
-as [roast](https://github.com/Raku/roast). I will check your work
+as [roast](https://github.com/Raku/roast#the-official-raku-test-suite). I will check your work
 with that test.
 
 You may start and will have a few minutes to complete the
