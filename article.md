@@ -46,6 +46,9 @@ following characteristics:
 + circumference is calculated during construction
 + an error is thrown if neither radius nor diameter are entered
 
+~~~raku
+~~~
+
 What do you notice about the construction?
 
 What happens with more complicated geometric figures?
@@ -108,6 +111,13 @@ For our exercise observe the following constraints:
 Your work should have at least the necessary attributes to define and
 position your class. You should also have code to show the creation of
 an instance of your class.
+
+Note that as I designed my version of the Box class, I wrote a test for it 
+at the same time. Then I refined each as I continued until I was satisfied
+with both. The test actually specifies my design, much the same as is
+done with the Raku language which is defined by its extensive test suite, referred to
+as [roast](https://github.com/Raku/roast). I will check your work
+with that test.
 
 You may start and will have a few minutes to complete the
 assignment. Raise your hands when finished--the first group to finish
