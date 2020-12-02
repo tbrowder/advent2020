@@ -3,15 +3,12 @@ LIBPATH := lib
 QUIET   := -Q
 VERBOSE := -v
 
-.PHONY: santa
+.PHONY: verbose quiet
 
-default: santa
-
-#TESTS   := t/*.t
-
-santa:
-	@ RAKULIB=$(LIBPATH) prove $(QUIET) --exec=$(RAKU) t/santa/*.t
-
+default: verbose
 
 verbose:
-	RAKULIB=$(LIBPATH) prove $(VERBOSE) --exec=$(RAKU) t/santa/*.t
+	RAKULIB=$(LIBPATH) prove $(VERBOSE) --exec=$(RAKU) t/*.t
+
+quiet:
+	@ RAKULIB=$(LIBPATH) prove $(QUIET) --exec=$(RAKU) t/*.t

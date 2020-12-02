@@ -7,11 +7,12 @@ has $.lly;
 # must define one of the two:
 has $.urx;
 has $.w;
+
 # must define one of the two:
 has $.ury;
 has $.h;
 
-submethod TWEAK() {
+submethod TWEAK {
     # check mandatory attrs
     my $err = 0;
     my $msg = "FATAL: class Box undefined attr(s):\n";
@@ -32,7 +33,7 @@ submethod TWEAK() {
         $msg ~= "\$ury and \$h\n";
     }
     die $msg if $err;
-     
+
     # h vs ury
     # h has precedence over ury
     if $!h.defined {
@@ -51,7 +52,7 @@ submethod TWEAK() {
     }
 
     $msg = "FATAL: class Box has invalid attr(s):\n";
-    # ensure urx > llx 
+    # ensure urx > llx
     if $!urx < $!llx {
         ++$err;
         $msg ~= "\$llx > \$urx\n";

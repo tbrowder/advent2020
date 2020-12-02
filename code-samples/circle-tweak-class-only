@@ -1,0 +1,19 @@
+class Circle {
+    has $.radius;
+    has $.diam;
+    has $.area;
+    has $.circum;
+    submethod TWEAK {
+        if $!radius.defined  {
+            $!diam = $!radius * 2
+        }
+        elsif $!diam.defined {
+            $!radius = $!diam * 0.5
+        }
+        else {
+            die "FATAL: neither radius nor diam are defined"
+        }
+        $!area   =  pi * $!radius ** 2;
+        $!circum =  pi * $!radius * 2;
+    }
+}

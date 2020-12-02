@@ -1,10 +1,5 @@
-#!/usr/bin/env raku
-my $sol = $*PROGRAM.IO.basename.Str; $sol ~~ s/sol//; say qq:to/HERE/;
-Solution $sol:\n==========
-HERE
-
-# sol 1
-class Box {
+unit module BoxA;
+class Box is export {
                         ;
                        ;;;
                         ;
@@ -29,6 +24,3 @@ class Box {
         $!urx - $!llx
     }
 }
-my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
-my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
-say $o.width;

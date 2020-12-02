@@ -1,4 +1,4 @@
-Santa Claus TWEAKs with a Class
+<!-- title: Santa Claus TWEAKs with a Class -->
 
 ## Prologue
 
@@ -37,7 +37,7 @@ channel" he added.
 listen in as he deals with class design. Santa is speaking...]
 
 And Raku has an easy-to-use but powerful class construction syntax. For
-example, look at this simple example of a Circle class with the 
+example, look at this simple example of a Circle class with the
 following characteristics:
 
 + immutable after construction
@@ -46,34 +46,118 @@ following characteristics:
 + circumference is calculated during construction
 + an error is thrown if neither radius nor diameter are entered
 
+<!-- circle-default -->
 ~~~raku
+$ cat circle-default
+class Circle {
+    has $.radius;
+    has $.diam;
+    has $.area = $!radius.defined
+        ?? ( $!diam = $!radius * 2; pi * $!radius ** 2 )
+        !! $!diam.defined
+            ?? ( $!radius = $!diam * 0.5; pi * $!radius ** 2 )
+            !! die "FATAL: neither radius nor diam are defined";
+    has $.circum = $!radius.defined
+        ?? ( $!diam = $!radius * 2; pi * $!radius * 2 )
+        !! $!diam.defined
+            ?? ( $!radius = $!diam * 0.5; pi * $!radius * 2 )
+            !! die "FATAL: neither radius nor diam are defined";
+}
+say "== enter radius";
+my $radius = 3;
+my $c = Circle.new: :$radius;
+say "radius: {$c.radius}";
+say "diam: {$c.diam}";
+say "area: {$c.area}";
+say "circum: {$c.circum}";
+
+say "== enter diam";
+my $diam = 6;
+$c = Circle.new: :$diam;
+say "radius: {$c.radius}";
+say "diam: {$c.diam}";
+say "area: {$c.area}";
+say "circum: {$c.circum}";
 ~~~
 
-What do you notice about the construction?
+What do you notice about the construction? Complicated default
+generation handling?
 
-What happens with more complicated geometric figures?
+What happens with more complicated geometric figures? It gets worse,
+right?
 
-How can you handle them? Yes, there are submethods that can help: BUILD and TWEAK.
+How can you handle them? Yes, there are submethods that can help:
+BUILD and TWEAK.
 
-I'm not going to bore you with the gory details but you can read then in the fine "docs"
-...
+I'm not going to bore you with the gory details but you can read all
+about them in the fine "docs" which I'll refer you to later.
 
-Instead, I recommend jumping straight to using TWEAK. It was added soon after the
-Christmas release because it eases the burden of creating immutable, practical classes.
+Instead, I recommend jumping straight to using TWEAK. It was added
+soon after the Christmas release because it eases the burden of
+creating immutable, practical classes.
 
-Take a look at rewriting the Circle class using TWEAK.
-In that short example, a "wc" comparison gives:
+Take a look at a rewrite of the Circle class using TWEAK.
+
+<!-- circle-tweak -->
+~~~raku
+$ cat circle-tweak
+class Circle {
+    has $.radius;
+    has $.diam;
+    has $.area;
+    has $.circum;
+
+    submethod TWEAK {
+        # Here we have access to all attributes and their values entered
+        # in the new method!
+        if $!radius.defined  {
+            $!diam = $!radius * 2
+        }
+        elsif $!diam.defined {
+            $!radius = $!diam * 0.5
+        }
+        else {
+            die "FATAL: neither radius nor diam are defined"
+        }
+        $!area   =  pi * $!radius ** 2;
+        $!circum =  pi * $!radius * 2;
+    }
+}
+say "== enter radius";
+my $radius = 3;
+my $c = Circle.new: :$radius;
+say "radius: {$c.radius}";
+say "diam: {$c.diam}";
+say "area: {$c.area}";
+say "circum: {$c.circum}";
+
+say "== enter diam";
+my $diam = 6;
+$c = Circle.new: :$diam;
+say "radius: {$c.radius}";
+say "diam: {$c.diam}";
+say "area: {$c.area}";
+say "circum: {$c.circum}";
+~~~
+
+In those two short examples, a "wc" comparison of the class definition
+code gives:
 
 ~~~
+$ wc circle-default-class-only circle-tweak-class-only
+ 14  90 541 circle-default-class-only
+ 19  59 430 circle-tweak-class-only
+ 33 149 971 total
 ~~~
 
-Not only is the TWEAK version a bit shorter, 
-I it's think much easier to maintain and extend. Why optimize whan clarity
-is much more important? Remember the famous quote by Dr. Donald Knuth,
-the world-renowned computer scientist and mathemetician, "premature optimization
-is the root of all evil."
+The default class version does have fewer lines, but it has more words
+and characters than the TWEAK version. Not only is the TWEAK version a
+bit less wordy, I think it's much easier to maintain and extend. Why
+optimize whan clarity is much more important? Remember the famous
+quote by Dr. Donald Knuth, the world-renowned computer scientist and
+mathemetician, "premature optimization is the root of all evil."
 
-Let's look at a practical case for class submethods. We are rewriting
+Now let's look at a practical case for class submethods. We are rewriting
 our page layout software for our publishing department.  As you may
 know, we have now started writing PDF directly using David Warring's
 fine [Raku PDF modules](https://pdf-raku.github.io), but we also do a
@@ -100,8 +184,7 @@ the diagonal's angle from one of the positive x-axis.
 
 The requirements of our class are as follows:
 + immutability after consruction via the default *new* method
-+ defined by the lower-left corner and either (1) the upper-right
-corner or (2) its width and height
++ defined by the lower-left corner and either (1) the upper-right corner or (2) its width and height
 
 For our exercise observe the following constraints:
 
@@ -112,12 +195,13 @@ Your work should have at least the necessary attributes to define and
 position your class. You should also have code to show the creation of
 an instance of your class.
 
-Note that as I designed my version of the Box class, I wrote a test for it 
-at the same time. Then I refined each as I continued until I was satisfied
-with both. The test actually specifies my design, much the same as is
-done with the Raku language which is defined by its extensive test suite, referred to
-as [roast](https://github.com/Raku/roast#the-official-raku-test-suite). I will check your work
-with that test.
+Note that as I designed my version of the Box class, I wrote a test
+for it at the same time. Then I refined each as I continued until I
+was satisfied with both. The test actually specifies my design, much
+the same as is done with the Raku language which is defined by its
+extensive test suite, referred to as
+[roast](https://github.com/Raku/roast#the-official-raku-test-suite). I
+will check your work with that test.
 
 You may start and will have a few minutes to complete the
 assignment. Raise your hands when finished--the first group to finish
@@ -127,10 +211,10 @@ gets a candy cane. :-D
 
 Okay, group A show your class.
 
-<!-- sol 1 -->
+<!-- solution-group-a -->
 ~~~raku
-$ cat Box.rakumod
-class Box {
+$ cat BoxA.rakumod
+class Box is export {
 
                         ;
                        ;;;
@@ -160,132 +244,328 @@ class Box {
 
 Ho, ho, ho! Quite the little ASCII artistes aren't we? Let's see Python top that! Now lets try it out...
 
-<!-- sol 1 testb-->
+<!-- Group A testA.raku -->
 ~~~raku
-$ raku -I.
-> use Box;
-> my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
-> my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
-> say $o.width;
+$ cat testA.raku
+use lib '.';
+use BoxA;
+my ($llx, $lly, $urx, $ury) = 0, 0, 2, 3;
+my $o = Box.new: :$llx, :$lly, :$urx, :$ury;
+say $o.width;
+$ raku testA.raku
 2
 ~~~
 
-Hm, I see at least one problem. You've added all the attributes, but the width method relies on attributes
-that may not have been initialized. What if the user had done this:
+Hm, I see at least one problem. You've added all the attributes, but
+the width method relies on attributes that may not have been
+initialized. What if the user had done this:
 
-<!-- sol 1a -->
+<!--  Group A testA2.raku -->
 ~~~raku
-> my ($llx, $lly, $w, $h) = 0, 0, 2, 3;
-> my $o = Box.new: :$llx, :$lly, :$w, $h;
-===SORRY=== Error while compiling sol1a
-Variable '$urx' is not declared
-...
+$ cat testA2.raku
+use lib '.';
+use BoxA;
+my ($llx, $lly, $w, $h) = 0, 0, 2, 3;
+my $o = Box.new: :$llx, :$lly, :$w, :$h;
+say $o.width;
+$ raku testA2.raku
+Use of uninitialized value of type Any in numeric context
+  in method width at BoxA.rakumod (BoxA) line 24
+0
 ~~~
 
-Boom! How can you handle that to avoid an exception? Another group please take that code and modify it accordingly.
+Boom! We got an invalid answer plus an error message! How can you
+change your code to handle the width and length properly? avoid an
+exception? Another group please take that code and modify it
+accordingly.
 
-And remove the ASCII art or the reindeer may think it's something good to eat, ho, ho, ho!
+And remove the ASCII art or the reindeer may think it's something good
+to eat, ho, ho, ho!
 
 Any one? Yes, group C, please show your solution.
 
-<!-- sol 2-->
+<!-- solution-group-c -->
 ~~~raku
+$ cat BoxC.rakumod
+unit module BoxC;
+class Box is export {
+    has$.llx;
+    has$.lly;
+    has$.urx;
+    has$.ury;
+    has$.w;
+    has$.h;
+    method width {
+        if $!urx.defined {
+            $!urx - $!llx
+        }
+        elsif $!w.defined {
+            $!w
+        }
+    }
+}
 ~~~
 
-That solution will work, but why are we not taking advantage of Raku's default
-methods to show the values of public attributes? We shouldn't have to add our
-own width method, or any other method. Any ideas!
+And the same test:
 
-
-<!-- sol 3-->
 ~~~raku
-# use BUILD
+$ cat testC.raku
+use lib '.';
+use BoxC;
+my ($llx, $lly, $w, $h) = 0, 0, 2, 3;
+my $o = Box.new: :$llx, :$lly, :$w, :$h;
+say $o.width;
+$ raku testA2.raku
+2
 ~~~
 
-Sorry, the BUILD submethod won't work for that without some more code. It doesn't
-get access to default values. It can only assign values from arguments in its
-signature.
-
-Group B, what do you have?
-
-<!-- sol 4-->
-~~~
-~~~
-
-Okay, much better, you used the TWEAK submethod to check for valid entries. And very clever to warn
-of reversed entries to adjust for lower-left being below and to the left of the upper-right corner!
-Note TWEAK was not available in the in the Christmas
-release of Raku, but it was added soon thereafter because it is needed so
-often in real-world use cases as we've seen.  
-(Note also TWEAK is a much better name for an elf than BUILD!)
-
-However, you
-haven't allowed for any other way to create the Box object other than entering
-the lower-left corner and upper-right corner coordinates. Does any other group have a solution
-for entering a corner along with the width and height?
-
-Group D, please show it.
-
-<!-- sol 5-->
-~~~
-~~~
-
-Okay, very good. But still only one method of entry.
-Let's learn from the demonstrations so far and integrate the useful things into a final
-solution. And this time, for extra credit, add tests for your class.
+Okay, great.  That solution will work, but why are we not taking
+advantage of Raku's default methods to show the values of public
+attributes? We shouldn't have to add our own width method, or any
+other method. Any ideas?
 
 [Santa hears a faint chime from his pocket watch and checks its face...]
 
 Okay, Christmas people, Santa is running behind schedule and I have to
 leave you soon. Besides, I don't know much more than you do and you'll
 have to dig into the "docs" about class construction in order to get the gory details.
-[Here](https://docs.raku.org/language/classtut#index-entry-BUILD) 
-and 
-[here](https://docs.raku.org/language/objects#Object_construction) 
+[Here](https://docs.raku.org/language/classtut#index-entry-BUILD)
+and
+[here](https://docs.raku.org/language/objects#Object_construction)
 are two places in particular that address BUILD and TWEAK and their differences.
-Also 
-seek help from more experienced Rakoons (the friendly community of Raku users) on IRC channel \#raku.
+
+Also seek help from more experienced Rakoons (the friendly community
+of Raku users) on IRC channel \#raku.
 
 Well done, all! And I'm not going to leave you with an unfinished task.
 
-I'm a pragmatic programmar and business man and "the bottom line in practical class construction is to "cut to the chase," use
-the TWEAK submethod and "take care of business." 
-Thus we've started to build a practical, robust, and immutable  class
-with the aid of the TWEAK submethod. 
+I'm a pragmatic programmer and business man and "the bottom line in
+practical class construction is to "cut to the chase," use the TWEAK
+submethod and "take care of business."
 
-Please see my final solution in the APPENDIX below. As they say on IRC, "YMMV" (your mileage may vary).
+Please see my final solution in the APPENDIX below.  It's my idea of a
+practical, robust, and immutable class with the aid of the TWEAK
+submethod. As they say on IRC, "YMMV" (your mileage may vary).
 
-I'm handing out candy canes and sugar plums for everyone in the class, ho, ho, ho!
+Now I'm handing out candy canes and sugar plums for everyone in the
+class, ho, ho, ho!
 
-Have a very Merry Chistmas, and a Happy New Year to you and your families!
+Have a very Merry Chistmas, and a Happy New Year to you and your
+families! Raku on, upward and onward all!
 
 # NOTES
 
 For inspiration for this article I thank my friend JJ Merelo and his
 new book *Raku Recipes* (mentioned above).
 
-The Santa Claus inspiration was from
-watching a rerun of the wonderful 1994 movie *The Santa Clause* starring Tim Allen.
-(Note there were also the sequels *The Santa Clause 2*, released in 2002, and
-*The Santa Clause 3: The Escape Clause*, released in 2006.) In case you've never heard
-the population of Santa's North Pole being estimated at over one million elves, I
-point you to this year's movie, [The Christmas Chronicles 2](https://www.imdb.com/title/tt11057644/?ref_=fn_al_tt_1),
-and ask the question: how
-do you suppose millions of children could be left gifts by Santa on Christmas
-without an operation with resources greater than Amazon, Fed EX, UPS, and the USPS combined?
+The Santa Claus inspiration was from watching a rerun of the wonderful
+1994 movie *The Santa Clause* starring Tim Allen.  (Note there were
+also the sequels *The Santa Clause 2*, released in 2002, and *The
+Santa Clause 3: The Escape Clause*, released in 2006.) In case you've
+never heard the population of Santa's North Pole being estimated at
+over one million elves, I point you to this year's movie,
+[The Christmas Chronicles 2](https://www.imdb.com/title/tt11057644/?ref_=fn_al_tt_1),
+and ask the question: how do you suppose millions of children could be
+left gifts by Santa on Christmas without an operation with resources
+greater than Amazon, Fed EX, UPS, and the USPS combined?
 
 # APPENDIX
 
-The final solution (also available on Github at [this repo](https://github.com/tbrowder/advent2020/solution):
+The final solution shown below is also available on Github at
+[this repo](https://github.com/tbrowder/advent2020/solution).
+Running 'make' in that directory runs the verbose test resulting in:
+
+~~~raku
+RAKULIB=lib prove -v --exec=raku t/*.t
+t/test-box.t ..
+ok 1 - begin testing incomplete new args, all tests die-ok
+ok 2 -
+ok 3 -
+ok 4 -
+ok 5 -
+ok 6 -
+ok 7 -
+ok 8 - end testing incomplete new args
+ok 9 - builds ok
+ok 10 - builds ok
+ok 11 - given w,h calculate urx,ury
+ok 12 -
+ok 13 - given urx,ury calculate w,h
+ok 14 -
+ok 15 - given urx,ury and w,h use w,h
+ok 16 -
+ok 17 -
+ok 18 -
+ok 19 - invalid: llx > urx (this and all following tests die-ok)
+ok 20 - invalid: lly > ury
+ok 21 - invalid: w <= zero
+ok 22 - invalid: h <= zero
+1..22
+ok
+All tests successful.
+Files=1, Tests=22,  0 wallclock secs ( 0.01 usr  0.01 sys +  0.34 cusr  0.03 csys =  0.39 CPU)
+Result: PASS
+~~~
 
 The module file **Box.rakumod**:
 
 ~~~raku
+unit class Box;
+
+# must define all two:
+has $.llx;
+has $.lly;
+
+# must define one of the two:
+has $.urx;
+has $.w;
+
+# must define one of the two:
+has $.ury;
+has $.h;
+
+submethod TWEAK {
+    # check mandatory attrs
+    my $err = 0;
+    my $msg = "FATAL: class Box undefined attr(s):\n";
+    if not $!llx.defined {
+        ++$err;
+        $msg ~= "\$llx\n";
+    }
+    if not $!lly.defined {
+        ++$err;
+        $msg ~= "\$lly\n";
+    }
+    if not $!urx.defined and not $!w.defined {
+        ++$err;
+        $msg ~= "\$urx and \$w\n";
+    }
+    if not $!ury.defined and not $!h.defined {
+        ++$err;
+        $msg ~= "\$ury and \$h\n";
+    }
+    die $msg if $err;
+
+    # h vs ury
+    # h has precedence over ury
+    if $!h.defined {
+        $!ury = $!lly + $!h;
+    }
+    elsif $!ury.defined {
+        $!h   = $!ury - $!lly;
+    }
+    # w vs urx
+    # w has precedence over urx
+    if $!w.defined {
+       $!urx = $!llx + $!w;
+    }
+    elsif $!urx.defined {
+       $!w   = $!urx - $!llx;
+    }
+
+    $msg = "FATAL: class Box has invalid attr(s):\n";
+    # ensure urx > llx
+    if $!urx < $!llx {
+        ++$err;
+        $msg ~= "\$llx > \$urx\n";
+    }
+    # ensure ury > lly
+    if $!ury < $!lly {
+        ++$err;
+        $msg ~= "\$lly > \$ury\n";
+    }
+    # ensure w > 0
+    if $!w <= 0 {
+        ++$err;
+        $msg ~= "\$w <= zero\n";
+    }
+    # ensure h > 0
+    if $!h <= 0 {
+        ++$err;
+        $msg ~= "\$h <= zero\n";
+    }
+    die $msg if $err;
+}
 ~~~
 
 The test file contents:
 
 ~~~raku
+use Test;
+use Box;
+
+my $o;
+# assign values to be used for all class attrs
+my $llx = 0;
+my $lly = 0;
+my $urx = 1;
+my $ury = 2;
+my $w   = 3;
+my $h   = 4;
+
+# object should die during construction if required attrs aren't provided
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx}, "begin testing incomplete new args, all tests die-ok";
+dies-ok {$o = Box.new: :$llx, :$lly, :$ury};
+dies-ok {$o = Box.new: :$lly, :$urx, :$ury};
+dies-ok {$o = Box.new: :$llx, :$urx, :$ury};
+dies-ok {$o = Box.new: :$llx, :$lly, :$w};
+dies-ok {$o = Box.new: :$llx, :$lly, :$h};
+dies-ok {$o = Box.new: :$lly, :$w, :$h};
+dies-ok {$o = Box.new: :$llx, :$w, :$h}, "end testing incomplete new args";
+# builds ok with expected args
+lives-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury}, "builds ok";
+lives-ok {$o = Box.new: :$llx, :$lly, :$w, :$h}, "builds ok";
+
+$o = Box.new: :$llx, :$lly, :$w, :$h;
+is $o.urx, 3, "given w,h calculate urx,ury";
+is $o.ury, 4;
+
+$urx = 1;
+$ury = 2;
+$o = Box.new: :$llx, :$lly, :$urx, :$ury;
+is $o.w, 1, "given urx,ury calculate w,h";
+is $o.h, 2;
+
+# test precedence of h,w over ury,urx
+$llx = 1;
+$lly = 2;
+$urx = 2;
+$ury = 3;
+$w   = 4;
+$h   = 5;
+$o = Box.new: :$llx, :$lly, :$urx, :$ury, :$w, :$h;
+is $o.w, 4, "given urx,ury and w,h use w,h";
+is $o.urx, 5;
+is $o.h, 5;
+is $o.ury, 7;
+
+# ensure urx > llx
+$llx = 3;
+$urx = 2;
+$lly = 2;
+$ury = 3;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: llx > urx (this and all following tests die-ok)";
+
+# ensure ury > lly
+$llx = 1;
+$urx = 2;
+$lly = 2;
+$ury = 1;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: lly > ury";
+
+# ensure w > zero
+$llx = 1;
+$urx = 1;
+$lly = 2;
+$ury = 1;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: w <= zero";
+
+# ensure h > zero
+$llx = 1;
+$urx = 2;
+$lly = 1;
+$ury = 1;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: h <= zero";
+
+done-testing;
 ~~~
-
-

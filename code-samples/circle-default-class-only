@@ -1,0 +1,14 @@
+class Circle {
+    has $.radius;
+    has $.diam;
+    has $.area = $!radius.defined
+        ?? ( $!diam = $!radius * 2; pi * $!radius ** 2 )
+        !! $!diam.defined
+            ?? ( $!radius = $!diam * 0.5; pi * $!radius ** 2 )
+            !! die "FATAL: neither radius nor diam are defined";
+    has $.circum = $!radius.defined
+        ?? ( $!diam = $!radius * 2; pi * $!radius * 2 )
+        !! $!diam.defined
+            ?? ( $!radius = $!diam * 0.5; pi * $!radius * 2 )
+            !! die "FATAL: neither radius nor diam are defined";
+}
