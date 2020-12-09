@@ -39,8 +39,8 @@ the beginning and teach L<Raku|https://raku.org> as the initial
 programming language for IT students at the North Pole University. In
 the meantime, make sure all current IT coders have a copy of JJ's
 book, and I expect them to start learning to use Raku in their spare
-time" he said with a chuckle.  "And have them all join the C<#raku> IRC
-channel" he added.
+time," he said with a chuckle.  "And have them all join the C<#raku> IRC
+channel," he added.
 
 =head2 A Class on Class
 
@@ -149,7 +149,7 @@ say "area: {$c.area}";
 say "circum: {$c.circum}";
 =end code
 
-In those two short examples, a "wc" comparison of the class definition
+In those two short examples, a C<wc> comparison of the class definition
 code gives:
 
 =begin code
@@ -352,7 +352,7 @@ L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>
 and their differences.
 
 Also seek help from more experienced Rakoons (the friendly community
-of Raku users) on IRC channel \#raku.
+of Raku users) on IRC channel C<#raku>.
 
 Well done, all! And I'm not going to leave you with an unfinished
 task.
