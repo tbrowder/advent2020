@@ -4,7 +4,12 @@ Z<title: Santa Claus TWEAKs with a Class>
 
 =head2 Prologue
 
-Santa was browsing the eTrade magazines on his iPad one morning and
+Santa N<For inspiration for this article I thank my friend JJ Merelo and his
+new book I<Raku Recipes> (mentioned above).>N<The Santa Claus North Pole inspiration was from watching a rerun of the wonderful
+1994 movie I<The Santa Clause> starring Tim Allen.  (Note there were
+also the sequels I<The Santa Clause 2>, released in 2002, and I<The
+Santa Clause 3: The Escape Clause>, released in 2006.)>
+was browsing the eTrade magazines on his iPad one morning and
 came across an
 L<article|https://www.wealthsimple.com/en-ca/magazine/cobol-controls-your-money?utm_medium=email&utm_source=topic+optin&utm_campaign=awareness&utm_content=20201121+prog+nl&mkt_tok=eyJpIjoiTmpWa1pEWTJNRE13WldZNSIsInQiOiJJXC9PQ1JRQWRvdjNhMWhHS0NmdHFnVE9kNGQ0Z3h5RXpMWm0wN0VlVHFYb1pvNTRrbUdlSVE0a09CSTAxKzVuVVltbzBtUjdKb3RzYVp5Z240Q2x1WUhhQlByWmRQNUJyNFBcL0d6c0Y1NGRXbU0yWUtHQ2xtN0luR0RIV3JtWjFjIn0%3D>
 referenced in the latest I<O'Reilly Programming Newsletter> about how
@@ -12,8 +17,7 @@ ancient COBOL is the programming language still used for the bulk of
 the world's business software.
 
 He had been aware of that since his huge operations with millions of
-elves
-N<In case you've
+elves N<In case you've
 never heard the population of Santa's North Pole being estimated at
 over one million elves, I point you to this year's movie, L<The
 Christmas Chronicles
@@ -25,7 +29,7 @@ had always been at the forefront of big business
 practice over the cenruries, and he was very proud of the cutting edge
 efficiencies in his maximally-automated toy factories.
 
-He had been keeping a keen eye (filled with a twinkle) on Larry Wall's
+He had been keeping a keen eye (filled with a twinkle E<0x1F385>) on Larry Wall's
 new L<Raku|https://raku.org> language since its formal release on
 Christmas Day in 2015, and decided it was time to incorporate its use
 in his new five-year plan. (After all, he mused, it is supposed to be
@@ -96,16 +100,22 @@ What do you notice about the construction? Complicated default generation handli
 
 What happens with more complicated geometric figures? It gets worse, right?
 
-How can you handle them? Yes, there are submethods that can help: BUILD and TWEAK.
+How can you handle them? Yes, there are submethods that can help:
+L<BUILD|https://rakudocs.github.io/language/classtut#index-entry-BUILD>
+and
+L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>.
 
 I'm not going to bore you with the gory details but you can read all
-about them in the fine "docs" to which I'll refer you later.
+about them in the fine L<"docs"|https://rakudocs/githib.io> to which I'll refer you later.
 
-Instead, I recommend jumping straight to using TWEAK. It was added
+Instead, I recommend jumping straight to using
+L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>.
+It was added
 soon after the Christmas release because it eases the burden of
 creating immutable, practical classes.
 
-Take a look at a rewrite of the Circle class using TWEAK.
+Take a look at a rewrite of the Circle class using
+L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>.
 
 Z<circle-tweak>
 =begin code
@@ -160,7 +170,11 @@ $ wc circle-default-class-only circle-tweak-class-only
 =end code
 
 The default class version does have fewer lines, but it has more words
-and characters than the TWEAK version. Not only is the TWEAK version a
+and characters than the
+L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>
+version. Not only is the
+L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>
+version a
 bit less wordy, I think it's much easier to maintain and extend. Why
 optimize whan clarity is much more important? Remember the famous
 quote by Dr. Donald Knuth, the world-renowned computer scientist and
@@ -169,7 +183,7 @@ mathemetician, "premature optimization is the root of all evil."
 Now let's look at a practical case for class submethods. We are
 rewriting our page layout software for our publishing department.  As
 you may know, we have now started writing PDF directly using David
-Warring's fine L<Raku PDF modules|https://pdf-raku.github.io>, but we
+Warring's excellent, but voluminous, L<Raku PDF modules|https://pdf-raku.github.io>, but we
 also do a lot of automated document production with PostScript. In
 both cases we use the convention of describing the location of page
 objects (text, images, etc.) as a 2D reference of x,y coordinates with
@@ -194,7 +208,7 @@ x-axis.
 
 The requirements of our class are as follows:
 
-=item immutability after consruction via the default *new* method
+=item immutability after consruction via the default C<new> method
 =item defined by the lower-left corner and either (1) the upper-right corner or (2) its width and height
 
 For our exercise observe the following constraints:
@@ -202,7 +216,9 @@ For our exercise observe the following constraints:
 =item the rectangle's edges are always parallel to the x or y axes
 =item the rectangle's edges have finite length
 
-Your work should have at least the necessary attributes to define and position your class. You should also have code to show the creation of an instance of your class.
+Your work should have at least the necessary attributes to define and
+position your class. You should also have code to show the creation of
+an instance of your class.
 
 Note that as I designed my version of the Box class, I wrote a test
 for it at the same time. Then I refined each as I continued until I
@@ -213,8 +229,8 @@ L<roast|https://github.com/Raku/roast#the-official-raku-test-suite>.
 I will check your work with that test.
 
 You may start and will have a few minutes to complete the
-assignment. Raise your hands when finished--the first group to finish
-gets a candy cane. E<0x1F385>
+assignment. Raise your hands when finishedE<0x2014>the first group to finish
+gets a candy cane. E<0x1F36c>
 
 ...
 
@@ -257,7 +273,7 @@ E<0x1f44d>
 E<0x1f923>
 E<0x00ad>
 
-Let's see Python top that! Now lets try it out...
+Let's see Python top that! E<0x1f601> Now lets try it out...
 
 Z<Group A testA.raku>
 =begin code
@@ -294,8 +310,8 @@ change your code to handle the width and length properly? avoid an
 exception? Another group please take that code and modify it
 accordingly.
 
-And remove the ASCII art or the reindeer may think it's something good
-to eat, ho, ho, ho!
+And remove the ASCII art or the reindeer E<0x1f98c> may think it's something good
+to eat, ho, ho, ho! E<0x1f601>
 
 Any one? Yes, group C, please show your solution.
 
@@ -339,7 +355,7 @@ advantage of Raku's default methods to show the values of public
 attributes? We shouldn't have to add our own width method, or any
 other method. Any ideas?
 
-[Santa hears a faint chime from his pocket watch and checks its
+[Santa hears a faint chime from his pocket watch E<0x23f1> and checks its
 face...]
 
 Okay, Christmas people, Santa is running behind schedule and I have to
@@ -351,246 +367,70 @@ and
 L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>
 and their differences.
 
-Also seek help from more experienced Rakoons (the friendly community
+Also seek help from more experienced I<Rakoons> (the friendly community
 of Raku users) on IRC channel C<#raku>.
 
 Well done, all! And I'm not going to leave you with an unfinished
 task.
 
 I'm a pragmatic programmer and business man and "the bottom line in
-practical class construction is to "cut to the chase," use the TWEAK
+practical class construction is to "cut to the chase," use the
+L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>
 submethod and "take care of business."
 
-Please see my final solution in the APPENDIX below.  It's my idea of a
-practical, robust, and immutable class with the aid of the TWEAK
-submethod. As they say on IRC, "YMMV" (your mileage may vary).
+Please see my final solution on my friend <@tbrowder>'s Github site
+L<here|https://github.com/tbrowder/advent2020/solution>. N<Note
+running C<make> in that directory runs the verbose test for the code.>
+It's my idea of a practical, robust, and immutable class with the aid
+of the
+L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>
+submethod. As they say on IRC, "YMMV" (your mileage may
+vary).
 
 Now I'm handing out candy canes and sugar plums for everyone in the
-class, ho, ho, ho!
+class, ho, ho, ho! E<0x1f601> I do E<0x2764>E<0xFE0F> Raku!
 
-Have a very Merry Chistmas, and a Happy New Year to you and your
-families! Raku on, upward and onward all!  E<0x1f385>
+Have a very Merry Chistmas E<0x1f384>, and a Happy New Year E<0x1F942> E<0x1F389> to you and your
+families! L<Raku|https://raku.org> on, upward and onward all (and you, too, Rudolf)!  E<0x1f385>
 
 =head2 Santa's Epilogue
 
-Don't forget the "reason for the season:" E<0x1111>
+Don't forget the "reason for the season:" E<0x271D>
 
-As I alway end these ruminants, er, ruminations, in the words of Tiny Tim,
-"may God bless us all, every one." N<Charles Dickens, I<A Christmas Carol>>
+As I alway end these ruminants E<0x1f98c>, er, sorry, too many reindeer around,
+ruminations, in the words of Charles Dickens' Tiny Tim, "B<may God bless Us , Every
+one!>"  N< I<A Christmas Carol>, a short story by Charles Dickens
+(1812-1870), a well-known and popular Victorian author whose many
+works include I<The Pickwick Papers>, I<Oliver Twist>,
+I<David Copperfield>, I<Bleak House>, I<Great
+Expectations>, and I<A Tale of Two Cities>.>
 
-N<For inspiration for this article I thank my friend JJ Merelo and his
-new book *Raku Recipes* (mentioned above).>
-
-N<The Santa Claus inspiration was from watching a rerun of the wonderful
-1994 movie I<The Santa Clause> starring Tim Allen.  (Note there were
-also the sequels I<The Santa Clause 2>, released in 2002, and I<The
-Santa Clause 3: The Escape Clause>, released in 2006.)>
-
-=head2 APPENDIX
-
-The final solution shown below is also available on Github at L<this
-repo|https://github.com/tbrowder/advent2020/solution>.  Running
-C<make> in that directory runs the verbose test resulting in:
-
-=begin code
-RAKULIB=lib prove -v --exec=raku t/*.t
-t/test-box.t ..
-ok 1 - begin testing incomplete new args, all tests die-ok
-ok 2 -
-ok 3 -
-ok 4 -
-ok 5 -
-ok 6 -
-ok 7 -
-ok 8 - end testing incomplete new args
-ok 9 - builds ok
-ok 10 - builds ok
-ok 11 - given w,h calculate urx,ury
-ok 12 -
-ok 13 - given urx,ury calculate w,h
-ok 14 -
-ok 15 - given urx,ury and w,h use w,h
-ok 16 -
-ok 17 -
-ok 18 -
-ok 19 - invalid: llx > urx (this and all following tests die-ok)
-ok 20 - invalid: lly > ury
-ok 21 - invalid: w <= zero
-ok 22 - invalid: h <= zero
-1..22
-ok
-All tests successful.
-Files=1, Tests=22,  0 wallclock secs ( 0.01 usr  0.01 sys +  0.34 cusr  0.03 csys =  0.39 CPU)
-Result: PASS
-=end code
-
-The module file B<Box.rakumod>:
-
-=begin code
-unit class Box;
-
-# must define all two:
-has $.llx;
-has $.lly;
-
-# must define one of the two:
-has $.urx;
-has $.w;
-
-# must define one of the two:
-has $.ury;
-has $.h;
-
-submethod TWEAK {
-    # check mandatory attrs
-    my $err = 0;
-    my $msg = "FATAL: class Box undefined attr(s):\n";
-    if not $!llx.defined {
-        ++$err;
-        $msg ~= "\$llx\n";
-    }
-    if not $!lly.defined {
-        ++$err;
-        $msg ~= "\$lly\n";
-    }
-    if not $!urx.defined and not $!w.defined {
-        ++$err;
-        $msg ~= "\$urx and \$w\n";
-    }
-    if not $!ury.defined and not $!h.defined {
-        ++$err;
-        $msg ~= "\$ury and \$h\n";
-    }
-    die $msg if $err;
-
-    # h vs ury
-    # h has precedence over ury
-    if $!h.defined {
-        $!ury = $!lly + $!h;
-    }
-    elsif $!ury.defined {
-        $!h   = $!ury - $!lly;
-    }
-    # w vs urx
-    # w has precedence over urx
-    if $!w.defined {
-       $!urx = $!llx + $!w;
-    }
-    elsif $!urx.defined {
-       $!w   = $!urx - $!llx;
-    }
-
-    $msg = "FATAL: class Box has invalid attr(s):\n";
-    # ensure urx > llx
-    if $!urx < $!llx {
-        ++$err;
-        $msg ~= "\$llx > \$urx\n";
-    }
-    # ensure ury > lly
-    if $!ury < $!lly {
-        ++$err;
-        $msg ~= "\$lly > \$ury\n";
-    }
-    # ensure w > 0
-    if $!w <= 0 {
-        ++$err;
-        $msg ~= "\$w <= zero\n";
-    }
-    # ensure h > 0
-    if $!h <= 0 {
-        ++$err;
-        $msg ~= "\$h <= zero\n";
-    }
-    die $msg if $err;
-}
-=end code
-
-The test file contents:
-
-=begin code
-use Test;
-use Box;
-
-my $o;
-# assign values to be used for all class attrs
-my $llx = 0;
-my $lly = 0;
-my $urx = 1;
-my $ury = 2;
-my $w   = 3;
-my $h   = 4;
-
-# object should die during construction if required attrs aren't provided
-dies-ok {$o = Box.new: :$llx, :$lly, :$urx}, "begin testing incomplete new args, all tests die-ok";
-dies-ok {$o = Box.new: :$llx, :$lly, :$ury};
-dies-ok {$o = Box.new: :$lly, :$urx, :$ury};
-dies-ok {$o = Box.new: :$llx, :$urx, :$ury};
-dies-ok {$o = Box.new: :$llx, :$lly, :$w};
-dies-ok {$o = Box.new: :$llx, :$lly, :$h};
-dies-ok {$o = Box.new: :$lly, :$w, :$h};
-dies-ok {$o = Box.new: :$llx, :$w, :$h}, "end testing incomplete new args";
-# builds ok with expected args
-lives-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury}, "builds ok";
-lives-ok {$o = Box.new: :$llx, :$lly, :$w, :$h}, "builds ok";
-
-$o = Box.new: :$llx, :$lly, :$w, :$h;
-is $o.urx, 3, "given w,h calculate urx,ury";
-is $o.ury, 4;
-
-$urx = 1;
-$ury = 2;
-$o = Box.new: :$llx, :$lly, :$urx, :$ury;
-is $o.w, 1, "given urx,ury calculate w,h";
-is $o.h, 2;
-
-# test precedence of h,w over ury,urx
-$llx = 1;
-$lly = 2;
-$urx = 2;
-$ury = 3;
-$w   = 4;
-$h   = 5;
-$o = Box.new: :$llx, :$lly, :$urx, :$ury, :$w, :$h;
-is $o.w, 4, "given urx,ury and w,h use w,h";
-is $o.urx, 5;
-is $o.h, 5;
-is $o.ury, 7;
-
-# ensure urx > llx
-$llx = 3;
-$urx = 2;
-$lly = 2;
-$ury = 3;
-dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: llx > urx (this and all following tests die-ok)";
-
-# ensure ury > lly
-$llx = 1;
-$urx = 2;
-$lly = 2;
-$ury = 1;
-dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: lly > ury";
-
-# ensure w > zero
-$llx = 1;
-$urx = 1;
-$lly = 2;
-$ury = 1;
-dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: w <= zero";
-
-# ensure h > zero
-$llx = 1;
-$urx = 2;
-$lly = 1;
-$ury = 1;
-dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: h <= zero";
-
-done-testing;
-=end code
+=head2 Footnotes
 
 =begin comment
 
 using pod notation:
 ==================
+
+stop watch
+  E<0x23f1>
+
+watch
+  E<0x>
+
+candy cane
+  E<0x1f36c>
+
+snowman
+  E<0x2603>
+  E<0x2602>
+  E<0x2604>
+
+christmas tree
+  E<0x1f384>
+
+reindeer
+  E<0x1f98c>
 
 left-pointing medium arrow
   E<0x1F814>
@@ -616,6 +456,10 @@ dragon
 smiley
 
 laughing
+
+grin
+  E<0x1f601>
+
 =end comment
 
 =end pod

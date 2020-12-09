@@ -1,0 +1,204 @@
+=begin pod
+
+=head2 Final Solution
+
+The final solution shown below is also available on Github at L<this
+repo|https://github.com/tbrowder/advent2020/solution>.  Running
+C<make> in that directory runs the verbose test resulting in:
+
+=begin code
+RAKULIB=lib prove -v --exec=raku t/*.t
+t/test-box.t ..
+ok 1 - begin testing incomplete new args, all tests die-ok
+ok 2 -
+ok 3 -
+ok 4 -
+ok 5 -
+ok 6 -
+ok 7 -
+ok 8 - end testing incomplete new args
+ok 9 - builds ok
+ok 10 - builds ok
+ok 11 - given w,h calculate urx,ury
+ok 12 -
+ok 13 - given urx,ury calculate w,h
+ok 14 -
+ok 15 - given urx,ury and w,h use w,h
+ok 16 -
+ok 17 -
+ok 18 -
+ok 19 - invalid: llx > urx (this and all following tests die-ok)
+ok 20 - invalid: lly > ury
+ok 21 - invalid: w <= zero
+ok 22 - invalid: h <= zero
+1..22
+ok
+All tests successful.
+Files=1, Tests=22,  0 wallclock secs ( 0.01 usr  0.01 sys +  0.34 cusr  0.03 csys =  0.39 CPU)
+Result: PASS
+=end code
+
+The module file B<Box.rakumod>:
+
+=begin code
+unit class Box;
+
+# must define all two:
+has $.llx;
+has $.lly;
+
+# must define one of the two:
+has $.urx;
+has $.w;
+
+# must define one of the two:
+has $.ury;
+has $.h;
+
+submethod TWEAK {
+    # check mandatory attrs
+    my $err = 0;
+    my $msg = "FATAL: class Box undefined attr(s):\n";
+    if not $!llx.defined {
+        ++$err;
+        $msg ~= "\$llx\n";
+    }
+    if not $!lly.defined {
+        ++$err;
+        $msg ~= "\$lly\n";
+    }
+    if not $!urx.defined and not $!w.defined {
+        ++$err;
+        $msg ~= "\$urx and \$w\n";
+    }
+    if not $!ury.defined and not $!h.defined {
+        ++$err;
+        $msg ~= "\$ury and \$h\n";
+    }
+    die $msg if $err;
+
+    # h vs ury
+    # h has precedence over ury
+    if $!h.defined {
+        $!ury = $!lly + $!h;
+    }
+    elsif $!ury.defined {
+        $!h   = $!ury - $!lly;
+    }
+    # w vs urx
+    # w has precedence over urx
+    if $!w.defined {
+       $!urx = $!llx + $!w;
+    }
+    elsif $!urx.defined {
+       $!w   = $!urx - $!llx;
+    }
+
+    $msg = "FATAL: class Box has invalid attr(s):\n";
+    # ensure urx > llx
+    if $!urx < $!llx {
+        ++$err;
+        $msg ~= "\$llx > \$urx\n";
+    }
+    # ensure ury > lly
+    if $!ury < $!lly {
+        ++$err;
+        $msg ~= "\$lly > \$ury\n";
+    }
+    # ensure w > 0
+    if $!w <= 0 {
+        ++$err;
+        $msg ~= "\$w <= zero\n";
+    }
+    # ensure h > 0
+    if $!h <= 0 {
+        ++$err;
+        $msg ~= "\$h <= zero\n";
+    }
+    die $msg if $err;
+}
+=end code
+
+The test file contents:
+
+=begin code
+use Test;
+use Box;
+
+my $o;
+# assign values to be used for all class attrs
+my $llx = 0;
+my $lly = 0;
+my $urx = 1;
+my $ury = 2;
+my $w   = 3;
+my $h   = 4;
+
+# object should die during construction if required attrs aren't provided
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx}, "begin testing incomplete new args, all tests die-ok";
+dies-ok {$o = Box.new: :$llx, :$lly, :$ury};
+dies-ok {$o = Box.new: :$lly, :$urx, :$ury};
+dies-ok {$o = Box.new: :$llx, :$urx, :$ury};
+dies-ok {$o = Box.new: :$llx, :$lly, :$w};
+dies-ok {$o = Box.new: :$llx, :$lly, :$h};
+dies-ok {$o = Box.new: :$lly, :$w, :$h};
+dies-ok {$o = Box.new: :$llx, :$w, :$h}, "end testing incomplete new args";
+# builds ok with expected args
+lives-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury}, "builds ok";
+lives-ok {$o = Box.new: :$llx, :$lly, :$w, :$h}, "builds ok";
+
+$o = Box.new: :$llx, :$lly, :$w, :$h;
+is $o.urx, 3, "given w,h calculate urx,ury";
+is $o.ury, 4;
+
+$urx = 1;
+$ury = 2;
+$o = Box.new: :$llx, :$lly, :$urx, :$ury;
+is $o.w, 1, "given urx,ury calculate w,h";
+is $o.h, 2;
+
+# test precedence of h,w over ury,urx
+$llx = 1;
+$lly = 2;
+$urx = 2;
+$ury = 3;
+$w   = 4;
+$h   = 5;
+$o = Box.new: :$llx, :$lly, :$urx, :$ury, :$w, :$h;
+is $o.w, 4, "given urx,ury and w,h use w,h";
+is $o.urx, 5;
+is $o.h, 5;
+is $o.ury, 7;
+
+# ensure urx > llx
+$llx = 3;
+$urx = 2;
+$lly = 2;
+$ury = 3;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: llx > urx (this and all following tests die-ok)";
+
+# ensure ury > lly
+$llx = 1;
+$urx = 2;
+$lly = 2;
+$ury = 1;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: lly > ury";
+
+# ensure w > zero
+$llx = 1;
+$urx = 1;
+$lly = 2;
+$ury = 1;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: w <= zero";
+
+# ensure h > zero
+$llx = 1;
+$urx = 2;
+$lly = 1;
+$ury = 1;
+dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: h <= zero";
+
+done-testing;
+=end code
+
+=end pod
