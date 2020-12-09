@@ -1,3 +1,3 @@
 #!/bin/bash
 
-raku --doc=HTML article.pod > advent-pretty.html
+raku --doc=HTML article.pod > fancy-advent.html

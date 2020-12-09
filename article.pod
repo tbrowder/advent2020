@@ -8,7 +8,7 @@ Santa was browsing the eTrade magazines on his iPad one morning and came across 
 L<article|https://www.wealthsimple.com/en-ca/magazine/cobol-controls-your-money?utm_medium=email&utm_source=topic+optin&utm_campaign=awareness&utm_content=20201121+prog+nl&mkt_tok=eyJpIjoiTmpWa1pEWTJNRE13WldZNSIsInQiOiJJXC9PQ1JRQWRvdjNhMWhHS0NmdHFnVE9kNGQ0Z3h5RXpMWm0wN0VlVHFYb1pvNTRrbUdlSVE0a09CSTAxKzVuVVltbzBtUjdKb3RzYVp5Z240Q2x1WUhhQlByWmRQNUJyNFBcL0d6c0Y1NGRXbU0yWUtHQ2xtN0luR0RIV3JtWjFjIn0%3D> 
 referenced in the latest I<O'Reilly Programming Newsletter> about how ancient COBOL is the programming language still used for the bulk of the world's business software.
 
-He had been aware of that since his huge operations with millions of elves Z<footnote>
+He had been aware of that since his huge operations with millions of elves N<footnote>
 had always been at the forefront of big business practice over the cenruries, and he was very proud of the cutting edge efficiencies in his maximally-automated toy factories.
 
 He had been keeping a keen eye (filled with a twinkle) on Larry Wall's new 
@@ -196,7 +196,13 @@ class Box is export {
 }
 =end code
 
-Ho, ho, ho! Quite the little ASCII artistes aren't we? Let's see Python top that! Now lets try it out...
+Ho, ho, ho! Quite the little ASCII artistes aren't we? 
+E<0x1f44f>
+E<0x1f44d>
+E<0x1f923>
+E<0x00ad>
+
+Let's see Python top that! Now lets try it out...
 
 Z<Group A testA.raku>
 =begin code
@@ -288,6 +294,7 @@ Please see my final solution in the APPENDIX below.  It's my idea of a practical
 Now I'm handing out candy canes and sugar plums for everyone in the class, ho, ho, ho!
 
 Have a very Merry Chistmas, and a Happy New Year to you and your families! Raku on, upward and onward all!
+E<0x1f385>
 
 =head2 NOTES
 
@@ -497,5 +504,41 @@ dies-ok {$o = Box.new: :$llx, :$lly, :$urx, :$ury;}, "invalid: h <= zero";
 
 done-testing;
 =end code
+
+Z<
+footnotes
+
+>
+
+=begin comment
+
+using pod notation:
+==================
+
+left-pointing medium arrow
+  E<0x1F814>
+
+red heart
+   E<x2764>E<xFE0F>
+
+Santa Claus
+  E<x1F385>
+
+clinking champagne glasses
+  E<x1F942>
+
+New Year horn
+  E<x1F389>
+
+Latin cross
+  E<x271D>
+
+dragon
+  E<x1F409>
+
+smiley
+
+laughing
+=end comment
 
 =end pod
