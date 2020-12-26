@@ -379,7 +379,7 @@ L<TWEAK|https://rakudocs.github.io/language/objects#Object_construction>
 submethod and "take care of business."
 
 Please see my final solution on my friend <@tbrowder>'s Github site
-L<here|https://github.com/tbrowder/advent2020/solution>. N<Note
+L<here|https://github.com/tbrowder/advent2020/>. N<Note
 running C<make> in that directory runs the verbose test for the code.>
 It's my idea of a practical, robust, and immutable class with the aid
 of the
